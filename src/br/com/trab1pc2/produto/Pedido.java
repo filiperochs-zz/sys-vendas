@@ -2,9 +2,21 @@ package br.com.trab1pc2.produto;
 
 public class Pedido {
 	private Item itens[];
-	private int numItens=0;
+	private static int numItens=0;
+	
+	// Construtores
+	
+	private Pedido() {
+		itens = new Item[1];
+	}
+	
+	public static Pedido getInstance() {
+		return new Pedido();
+	}
+	
+	// Métodos
 
-	public boolean inserir(Item item) {
+	public boolean inserir(Item item) {		
 		return false;
 	}
 	
