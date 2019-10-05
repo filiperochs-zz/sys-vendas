@@ -23,10 +23,10 @@ public class Main {
 	public static void menuAdministrador() {
 		int opcao = 1, opcao2 = 1;
 		do {
-			System.out.printf("\n<---> MERCADIN IGUAÇU <--->\n");
+			System.out.printf("\n<---> ADMINISTRADOR <--->\n");
 			System.out.printf("1. Inserir Produto\n");
 			System.out.printf("2. Listar Produtos\n");
-			System.out.printf("3. ...\n");
+			System.out.printf("3. Criar Pedido\n");
 			System.out.printf("4. ...\n");
 			System.out.printf("0. SAIR\n");
 			System.out.printf(": ");
@@ -78,7 +78,34 @@ public class Main {
 				break;
 
 			case 3:
-
+				while(opcao2 != 0) {
+					System.out.printf("\n<---> Menu de Criação de Pedidos <--->\n");
+					System.out.printf("1. Criar item de produtos.\n");
+					System.out.printf("2. Criar Pedido.\n");
+					System.out.printf("0. Voltar ao Menu Principal.\n");
+					System.out.printf(": ");
+					opcao2 = inN.nextInt();
+					System.out.printf("\n");
+					
+					switch (opcao2) {
+					case 0:
+						break;
+					case 1:
+						Produto produto = lerProduto();
+						
+						if (sis.inserirProduto(produto)) {
+							System.out.printf("Produto inserido com sucesso.\n");
+						} else {
+							System.out.println("Falha ao inserir produto.\n");
+						}
+						break;
+					default:
+						System.out.printf("Opção Inválida!\n");
+						break;
+					}
+					
+				}
+				
 				break;
 
 			case 0:
