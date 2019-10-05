@@ -43,7 +43,7 @@ public class Sistema {
 				vendas[numVendas] = venda;
 				numVendas++;
 			} else {
-				//vendas = extendeVetor(vendas);
+				vendas = extendeVetor(vendas);
 			}
 			
 			return true;
@@ -52,7 +52,7 @@ public class Sistema {
 		}
 	}
 	
-	public Produto[] extendeVetor(Produto[] produtos) {
+	public Produto[] extendeVetor(Produto[] produtos) { // extende o vetor produtos[] em +10
 		if (numProdutos >= produtos.length) {
 			Produto[] aux = new Produto[produtos.length+10];
 			for (int i = 0; i < produtos.length; i++) {
@@ -65,7 +65,20 @@ public class Sistema {
 		}
 	}
 	
-	public Produto[] listarProdutos() {
+	public Venda[] extendeVetor(Venda[] vendas) { // extende o vetor vendas[] em +10
+		if (numVendas >= vendas.length) {
+			Venda[] aux = new Venda[vendas.length+10];
+			for (int i = 0; i < vendas.length; i++) {
+				aux[i] = vendas[i];
+			}
+			
+			return aux;
+		} else {
+			return vendas;
+		}
+	}
+	
+	public Produto[] listarProdutos() { // Listar todos os produtos (retorna um vetor produtos[] de Produto)
 		Produto[] produtos = new Produto[numProdutos];
 		
 		for (int i = 0; i < produtos.length; i++) {
@@ -75,7 +88,7 @@ public class Sistema {
 		return produtos;
 	}
 	
-	public Venda[] listarVendas() {	
+	public Venda[] listarVendas() {	// Listar todas as vendas (retorna um vetor vendas[] de Venda)
 		Venda[] vendas = new Venda[numVendas];
 		
 		for (int i = 0; i < vendas.length; i++) {
