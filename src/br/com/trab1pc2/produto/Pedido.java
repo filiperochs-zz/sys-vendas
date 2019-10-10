@@ -42,7 +42,7 @@ public class Pedido {
 	
 	private Item[] extendeVetor(Item[] itens) { // extende o vetor itens[] em +10
 		if (numItens >= itens.length) {
-			Item[] aux = new Item[itens.length+10];
+			Item[] aux = new Item[itens.length+1];
 			for (int i = 0; i < itens.length; i++) {
 				aux[i] = itens[i];
 			}
