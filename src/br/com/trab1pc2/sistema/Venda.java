@@ -15,6 +15,13 @@ public class Venda {
 	// Getters and Setters
 	
 	/**
+	 * @return the id
+	 */
+	public long getId() {
+		return id;
+	}
+	
+	/**
 	 * @return the data
 	 */
 	public Calendar getData() {

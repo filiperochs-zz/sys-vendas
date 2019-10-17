@@ -25,8 +25,11 @@ public class Main {
 		do {
 			System.out.printf("\n<---> ADMINISTRADOR <--->\n");
 			System.out.printf("1. Inserir Produto\n");
-			System.out.printf("2. Listar Produtos\n");
-			System.out.printf("3. Criar Pedido\n");
+//			System.out.printf("2. Listar Produtos\n");
+			System.out.printf("2. Excluir Produto\n");
+			System.out.printf("3. Alterar Produto\n");
+			System.out.printf("4. Procurar - Listagens\n");
+//			System.out.printf("3. Criar Pedido\n");
 			System.out.printf("4. ...\n");
 			System.out.printf("0. SAIR\n");
 			System.out.printf(": ");
@@ -65,18 +68,13 @@ public class Main {
 				}
 				
 				break;
-
-			case 2:
-				listarProdutos();
 				
-				break;
-
-			case 3:
+			case 2:
 				while(opcao2 != 0) {
-					System.out.printf("\n<---> Menu de Criação de Pedidos <--->\n");
-					System.out.printf("1. Adicionar Itens ao Pedido.\n");
-					System.out.printf("2. Finalizar Pedido.\n");
-					System.out.printf("0. Cancelar e Voltar.\n");
+					System.out.printf("\n<---> Menu de Exclusão de Produtos <--->\n");
+					System.out.printf("1. Ver produtos.\n");
+					System.out.printf("2. Excluir produto.\n");
+					System.out.printf("0. Voltar ao Menu Principal.\n");
 					System.out.printf(": ");
 					opcao2 = inN.nextInt();
 					System.out.printf("\n");
@@ -84,15 +82,26 @@ public class Main {
 					switch (opcao2) {
 					case 0:
 						break;
-					case 1:
-						int id, qtd;
 						
+					case 1:
 						listarProdutos();
 						
-						System.out.println(lerItem());
+						break;
 						
+					case 2:
+						boolean retorno;
+						
+						retorno = excluirProduto();
+						
+						
+						if (retorno) {
+							System.out.printf("Produto excluído com sucesso!\n");
+						} else {
+							System.out.printf("Falha ao excluir. Produto não existe ou ID inválido.\n");
+						}
 						
 						break;
+						
 					default:
 						System.out.printf("Opção Inválida!\n");
 						break;
@@ -101,6 +110,116 @@ public class Main {
 				}
 				
 				break;
+			
+			case 3:
+				while(opcao2 != 0) {
+					System.out.printf("\n<---> Menu de Alteração de Produtos <--->\n");
+					System.out.printf("1. Ver produtos.\n");
+					System.out.printf("2. Alterar produto.\n");
+					System.out.printf("0. Voltar ao Menu Principal.\n");
+					System.out.printf(": ");
+					opcao2 = inN.nextInt();
+					System.out.printf("\n");
+					
+					switch (opcao2) {
+					case 0:
+						break;
+						
+					case 1:
+						listarProdutos();
+						
+						break;
+						
+					case 2:
+						boolean retorno;
+						
+						retorno = alterarProduto();
+						
+						if (retorno) {
+							System.out.printf("Produto alterado com sucesso!\n");
+						} else {
+							System.out.printf("Falha ao alterar. Produto não existe ou ID inválido.\n");
+						}
+						
+						break;
+						
+					default:
+						System.out.printf("Opção Inválida!\n");
+						break;
+					}
+					
+				}
+				
+				break;
+				
+			case 4:
+				while(opcao2 != 0) {
+					System.out.printf("\n<---> Menu de Pesquisa <--->\n");
+					System.out.printf("1. Ver produtos.\n");
+					System.out.printf("2. Ver vendas.\n");
+					System.out.printf("0. Voltar ao Menu Principal.\n");
+					System.out.printf(": ");
+					opcao2 = inN.nextInt();
+					System.out.printf("\n");
+					
+					switch (opcao2) {
+					case 0:
+						break;
+						
+					case 1:
+						listarProdutos();
+						
+						break;
+						
+					case 2:
+						listarVendas();
+						
+						break;
+						
+					default:
+						System.out.printf("Opção Inválida!\n");
+						break;
+					}
+					
+				}
+				
+				break;
+				
+//			case 2:
+//				listarProdutos();
+//				
+//				break;
+
+//			case 3:
+//				while(opcao2 != 0) {
+//					System.out.printf("\n<---> Menu de Criação de Pedidos <--->\n");
+//					System.out.printf("1. Adicionar Itens ao Pedido.\n");
+//					System.out.printf("2. Finalizar Pedido.\n");
+//					System.out.printf("0. Cancelar e Voltar.\n");
+//					System.out.printf(": ");
+//					opcao2 = inN.nextInt();
+//					System.out.printf("\n");
+//					
+//					switch (opcao2) {
+//					case 0:
+//						break;
+//					case 1:
+//						int id, qtd;
+//						
+//						listarProdutos();
+//						
+//						System.out.println(lerItem());
+//						
+//						
+//						break;
+//					default:
+//						System.out.printf("Opção Inválida!\n");
+//						break;
+//					}
+//					
+//				}
+//				
+//				break;
 
 			case 0:
 				System.out.printf("Saindo da Aplicação.\n");
@@ -139,6 +258,29 @@ public class Main {
 		return produto;
 	}
 	
+	private static boolean excluirProduto() {
+		
+		int id;
+		
+		System.out.printf("ID do produto: ");
+		id = inN.nextInt();
+		System.out.printf("\n");
+		
+		return sis.excluirProduto(id);
+		
+	}
+	
+	private static boolean alterarProduto() {
+		
+		System.out.printf("ID do Produto: ");
+		long id = inN.nextLong();
+		System.out.printf("\nAlterar Dados:\n");
+		Produto produto = lerProduto();
+		
+		return sis.alterarProduto(id, produto);
+		
+	}
+	
 	private static Item lerItem() { 
 		
 		System.out.printf("\nID do Produto: ");
@@ -168,6 +310,16 @@ public class Main {
 		System.out.printf("\n<--> -------------- <-->\n");
 	}
 	
+	private static void listarVendas() {
+		Venda[] vendas = sis.listarVendas();
+		
+		System.out.printf("\n<--> Lista de Vendas: <-->\n");
+		for (int i = 0; i < vendas.length; i++) {
+			System.out.printf("ID: %d\nPedido: %s\nCliente: %s\nData: %s\n\n", vendas[i].getId(), vendas[i].getPedido(), vendas[i].getCliente(), vendas[i].getData());
+		}
+		System.out.printf("\n<--> -------------- <-->\n");
+	}
+	
 	private static void init() {
 		Produto produto = Produto.getInstance("Jaca", "Fruta", 12.99, 50);
 		sis.inserirProduto(produto);
@@ -179,9 +331,6 @@ public class Main {
 		sis.inserirProduto(produto);
 		produto = Produto.getInstance("Maracujá", "Fruta", 16.99, 45);
 		sis.inserirProduto(produto);
-		sis.excluirProduto(3);
-		//sis.excluirProduto(3);
-		//sis.excluirProduto(5);
 	}
 
 }
