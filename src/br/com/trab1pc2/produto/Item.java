@@ -38,6 +38,12 @@ public class Item {
 	public int getQtd() {
 		return qtd;
 	}
+	/**
+	 * @return the produto
+	 */
+	public Produto getProduto() {
+		return produto;
+	}
 	
 	
 }

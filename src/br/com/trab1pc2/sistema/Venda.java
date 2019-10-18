@@ -1,15 +1,17 @@
 package br.com.trab1pc2.sistema;
 import br.com.trab1pc2.produto.*;
-
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Venda {
 	private long id; // (Auto gerado)
-	private Calendar data;
+	private Date data;
 	private Pedido pedido;
 	private String cliente;
 	
 	private static long geraId=1;
+	SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 	
 	
 	// Getters and Setters
@@ -24,13 +26,13 @@ public class Venda {
 	/**
 	 * @return the data
 	 */
-	public Calendar getData() {
+	public Date getData() {
 		return data;
 	}
 	/**
 	 * @param data the data to set
 	 */
-	public void setData(Calendar data) {
+	public void setData(Date data) { 
 		this.data = data;
 	}
 	/**

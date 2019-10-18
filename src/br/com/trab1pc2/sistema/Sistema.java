@@ -1,5 +1,8 @@
 package br.com.trab1pc2.sistema;
+import java.util.Date;
+
 import br.com.trab1pc2.produto.Item;
+import br.com.trab1pc2.produto.Pedido;
 import br.com.trab1pc2.produto.Produto;
 
 // Sistema será um singleton
@@ -156,18 +159,44 @@ public class Sistema {
 		return vendas;
 	}
 	
+	public Venda[] listarVendasDia(Date data) {	// Listar todas as vendas (retorna um vetor vendas[] de Venda)
+		Venda[] vendas = new Venda[numVendas];
+		int cont=0;
+		for (int i = 0; i < vendas.length; i++) {
+			if (vendas[i].getData() == data) {
+				cont++;
+			}
+		}
+		
+		for (int i = 0; i < cont; i++) {
+			if (vendas[i].getData() == data) {
+				vendas[i] = this.vendas[i];
+			}
+		}
+		
+		return vendas;
+	}
+	
 	public Item criarItem(int id, int qtd) {
 		Produto produto = buscarProduto(id);
-		Item item;
 		
 		if (produto != null) {
-			item = Item.getInstance(produto, produto.getPreco(), qtd);
-			System.out.println(item);
+			return Item.getInstance(produto, produto.getPreco(), qtd);
 		} else {
-			item = null;
+			return null;
 		}
-			
-		return item;
+	}
+	
+	public Pedido criarPedido() {
+		return Pedido.getInstance();
+	}
+	
+	public Item[] listarItens(Pedido pedido) {
+		if (pedido != null) {
+			return pedido.getItens();
+		} else {
+			return null;
+		}
 	}
 	
 	private Produto buscarProduto(int id) {

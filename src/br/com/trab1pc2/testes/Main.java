@@ -10,13 +10,134 @@ public class Main {
 
 	public static void main(String[] args) {
 		init();
-		menuAdministrador();
+		menuAtendente();
 
 	}
 	
 	// Menu Atendente
 	public static void menuAtendente() {
-		
+		int opcao = 1, opcao2 = 1, opcao3 = 1;
+		do {
+			System.out.printf("\n<---> ATENDENTE <--->\n");
+			System.out.printf("1. Criar Pedido\n");
+//			System.out.printf("2. Listar Produtos\n");
+			System.out.printf("4. Procurar - Listagens\n");
+			System.out.printf("4. ...\n");
+			System.out.printf("0. SAIR\n");
+			System.out.printf(": ");
+			opcao = inN.nextInt();
+			System.out.printf("\n");
+			opcao2 = 1;
+
+			switch (opcao) {
+			
+			case 4:
+				while(opcao2 != 0) {
+					System.out.printf("\n<---> Menu de Pesquisa <--->\n");
+					System.out.printf("1. Ver produtos.\n");
+					System.out.printf("2. Ver vendas.\n");
+					System.out.printf("0. Voltar ao Menu Principal.\n");
+					System.out.printf(": ");
+					opcao2 = inN.nextInt();
+					System.out.printf("\n");
+					
+					switch (opcao2) {
+					case 0:
+						break;
+						
+					case 1:
+						listarProdutos();
+						
+						break;
+						
+					case 2:
+						listarVendas();
+						
+						break;
+						
+					default:
+						System.out.printf("Opção Inválida!\n");
+						break;
+					}
+					
+				}
+				
+				break;
+				
+//			case 2:
+//				listarProdutos();
+//				
+//				break;
+
+			case 1:
+				while(opcao2 != 0) {
+					System.out.printf("\n<---> Menu de Pedidos <--->\n");
+					System.out.printf("1. Adicionar Item ao Pedido.\n");
+					System.out.printf("2. Finalizar Pedido.\n");
+					System.out.printf("0. Cancelar e Voltar.\n");
+					System.out.printf(": ");
+					opcao2 = inN.nextInt();
+					System.out.printf("\n");
+					
+					switch (opcao2) {
+					case 0:
+						break;
+						
+					case 1:
+						Pedido pedido = criarPedido();
+						listarProdutos();
+						while(opcao3 != 0) {
+							System.out.printf("\n<---> ----------------- <--->\n");
+							System.out.printf("1. Novo Item.\n");
+							System.out.printf("2. Ver itens.\n");
+							System.out.printf("0. Voltar.\n");
+							System.out.printf(": ");
+							opcao3 = inN.nextInt();
+							System.out.printf("\n");
+							
+							switch (opcao3) {
+							case 0:
+								break;
+								
+							case 1:
+								lerItem(pedido);
+								
+								break;
+								
+							case 2:
+								listarItens(pedido);
+								
+								break;
+								
+							default:
+								System.out.printf("Opção Inválida!\n");
+								break;
+							}
+							
+						}
+						
+						break;
+						
+					default:
+						System.out.printf("Opção Inválida!\n");
+						break;
+					}
+					
+				}
+				
+				break;
+
+			case 0:
+				System.out.printf("Saindo da Aplicação.\n");
+				break;
+
+			default:
+				System.out.printf("Opção Inválida!\n");
+				break;
+
+			}
+
+		} while (opcao != 0);
 	}
 	
 	// Menu Adminsitrador
@@ -281,7 +402,7 @@ public class Main {
 		
 	}
 	
-	private static Item lerItem() { 
+	private static Item lerItem(Pedido pedido) { 
 		
 		System.out.printf("\nID do Produto: ");
 		int id = inN.nextInt();
@@ -292,12 +413,31 @@ public class Main {
 		
 		if (item == null) {
 			System.out.printf("Dados incorretos!\n");
-			item = lerItem();
 		} else {
+			pedido.inserirItem(item);
 			System.out.printf("Inserindo dados...\n");
 		}
 		
 		return item;
+	}
+	
+	private static Pedido criarPedido() {
+		return sis.criarPedido();
+	}
+	
+	private static void listarItens(Pedido pedido) {
+		if (pedido != null) {
+			Item[] itens = sis.listarItens(pedido);
+			
+			System.out.printf("\n<--> Lista de Itens: <-->\n");
+			for (int i = 0; i < itens.length; i++) {
+				System.out.printf("Produto: %s\nPreço: R$%.2f\nQuantidade: %d\n\n", itens[i].getProduto().getNome(), itens[i].getPreco(), itens[i].getQtd());
+			}
+			System.out.printf("\n<--> -------------- <-->\n");
+			
+		} else {
+			System.out.println("Erro ao listar itens.");
+		}
 	}
 	
 	private static void listarProdutos() {
