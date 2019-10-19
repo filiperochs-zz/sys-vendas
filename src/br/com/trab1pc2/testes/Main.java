@@ -12,6 +12,8 @@ public class Main {
 	private static SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
 	public static void main(String[] args) {
+		System.out.printf("\nInformações de login -> usuários: adm e atend (senha: 123)\n");
+		
 		init();
 		ligarSys();
 
