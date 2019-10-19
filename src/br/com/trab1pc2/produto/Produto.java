@@ -6,6 +6,7 @@ public class Produto {
 	private String descricao;
 	private double preco;
 	private int qtdEstoque;
+	private boolean excluido;
 	
 	private static long geraId=1;
 
@@ -20,6 +21,7 @@ public class Produto {
 		this.descricao = descricao;
 		this.preco = preco;
 		this.qtdEstoque = qtdEstoque;
+		this.excluido = false;
 	}
 	
 	// getInstance
@@ -30,6 +32,23 @@ public class Produto {
 		} else {
 			return null;
 		}
+	}
+	
+	// Métodos
+	
+	public boolean alterarEstoque(int qtd) {
+		if (qtd > 0 && qtdEstoque <= qtd) {
+			this.qtdEstoque -= qtd;
+			return true;
+			
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean excluir() {
+		this.excluido = true;
+		return true;
 	}
 	
 	// GGAS
@@ -67,6 +86,13 @@ public class Produto {
 	 */
 	public int getQtdEstoque() {
 		return qtdEstoque;
+	}
+	
+	/**
+	 * @return the excluido
+	 */
+	public boolean getExcluido() {
+		return excluido;
 	}
 	
 }

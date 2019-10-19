@@ -23,6 +23,16 @@ public class Item {
 		
 	}
 	
+	// Métodos
+	
+	public boolean somarQtd(int qtd) {
+		if (qtd > 0) {
+			this.qtd += qtd;
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	// Getters and Setters
 	

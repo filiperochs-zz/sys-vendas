@@ -1,7 +1,5 @@
 package br.com.trab1pc2.produto;
 
-import br.com.trab1pc2.sistema.Venda;
-
 public class Pedido {
 	private Item itens[];
 	private double precoTotal;
@@ -12,6 +10,7 @@ public class Pedido {
 	private Pedido() {
 		itens = new Item[1];
 		precoTotal = 0;
+		numItens=0;
 	}
 	
 	public static Pedido getInstance() {
@@ -26,10 +25,13 @@ public class Pedido {
 				itens = extendeVetor(itens);
 			}
 			
-			itens[numItens] = item;
-			numItens++;
+			if (existeItem(item) != -1) {
+				itens[existeItem(item)].somarQtd(item.getQtd());
+			} else {
+				itens[numItens] = item;
+				numItens++;
+			}
 			atualizarPrecoTotal(item.getPreco(), item.getQtd());
-			
 			return true; // item inserido com sucesso
 		} else {
 			return false; // throw Exception
@@ -50,6 +52,22 @@ public class Pedido {
 			return aux;
 		} else {
 			return itens;
+		}
+	}
+
+	// Métodos
+	
+	private int existeItem(Item item) {
+		if (item != null) {
+			for (int i = 0; i < numItens; i++) {
+				if (itens[i].getProduto().getId() == item.getProduto().getId()) {
+					return i;
+				}
+			}
+			
+			return -1;
+		} else {
+			return -1;
 		}
 	}
 	

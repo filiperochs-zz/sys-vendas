@@ -1,8 +1,8 @@
 package br.com.trab1pc2.sistema;
 import br.com.trab1pc2.produto.*;
 import java.util.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 public class Venda {
 	private long id; // (Auto gerado)
@@ -11,7 +11,31 @@ public class Venda {
 	private String cliente;
 	
 	private static long geraId=1;
-	SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+	private static SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+	
+	private Venda(Pedido pedido, String cliente, Date data) {
+		this.id = geraId;
+		geraId++;
+		
+		this.pedido = pedido;
+		this.cliente = cliente;
+		this.data = data;
+	}
+	
+	public static Venda getInstance(Pedido pedido, String cliente, String data) {
+		if (pedido != null && (cliente != null && cliente.length() >= 2) && (data != null && (data.length() >= 8 && data.length() <= 10))) {
+			Date dataFormatada = null;
+			try {
+				dataFormatada = formato.parse(data);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+			return new Venda(pedido, cliente, dataFormatada);
+		} else {
+			return null;
+		}
+	}
 	
 	
 	// Getters and Setters
@@ -30,34 +54,16 @@ public class Venda {
 		return data;
 	}
 	/**
-	 * @param data the data to set
-	 */
-	public void setData(Date data) { 
-		this.data = data;
-	}
-	/**
 	 * @return the pedido
 	 */
 	public Pedido getPedido() {
 		return pedido;
 	}
 	/**
-	 * @param pedido the pedido to set
-	 */
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
-	}
-	/**
 	 * @return the cliente
 	 */
 	public String getCliente() {
 		return cliente;
-	}
-	/**
-	 * @param cliente the cliente to set
-	 */
-	public void setCliente(String cliente) {
-		this.cliente = cliente;
 	}
 
 }
