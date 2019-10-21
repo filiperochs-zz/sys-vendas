@@ -155,6 +155,14 @@ public class Sistema {
 		return produtos;
 	}
 
+	public Venda ultimaVenda() { // Listar todas as vendas (retorna um vetor vendas[] de Venda)
+		Venda venda = null;
+
+		venda = vendas[numVendas-1];
+
+		return venda;
+	}
+	
 	public Venda[] listarVendas() { // Listar todas as vendas (retorna um vetor vendas[] de Venda)
 		Venda[] vendas = new Venda[numVendas];
 
@@ -305,7 +313,8 @@ public class Sistema {
 				Produto produto;
 				for (int i = 0; i < venda.getPedido().getItens().length; i++) {
 					produto = buscarProduto(venda.getPedido().getItens()[i].getProduto().getId());
-					if (!produto.alterarEstoque(venda.getPedido().getItens()[i].getQtd())) {
+					if (produto.alterarEstoque(venda.getPedido().getItens()[i].getQtd())) {
+						excluirVenda(venda.getId());
 						return false;
 					}
 				}
@@ -456,12 +465,12 @@ public class Sistema {
 		}
 	}
 
-	public boolean excluirVenda(int id) {
-		if (id > 0) {
+	public boolean excluirVenda(long l) {
+		if (l > 0) {
 			int j = 0;
 			boolean existe = false;
 			for (int i = 0; i < vendas.length; i++) {
-				if (vendas[i].getId() != id) {
+				if (vendas[i].getId() != l) {
 					j++;
 				} else {
 					existe = true;
@@ -473,7 +482,7 @@ public class Sistema {
 			int index = 0;
 
 			for (int i = 0; i < vendas.length; i++) {
-				if (vendas[i].getId() != id) {
+				if (vendas[i].getId() != l) {
 					vendasAux[index] = vendas[i];
 					index++;
 				}

@@ -100,7 +100,7 @@ public class Main {
 						
 						System.out.printf("\n\n");
 						
-						listarVendas();
+						ultimaVenda();
 						opcao2 = 0;
 						break;
 						
@@ -556,6 +556,18 @@ public class Main {
 			System.out.printf("\nProduto não encontrado.\n");
 			listarProdutoNome();
 		}
+	}
+	
+	private static void ultimaVenda() {
+		Venda venda = sis.ultimaVenda();
+		
+		System.out.printf("\n<--> Comprovante: <-->\n");
+		
+		System.out.printf("ID: %d\nPedido: \n", venda.getId());
+		listarProdutosVenda(venda);
+		System.out.printf("\nPreço total: R$%.2f\nCliente: %s\nData: %s\n\n", venda.getPedido().getPrecoTotal(), venda.getCliente(), formato.format(venda.getData()));
+		
+		System.out.printf("\n<--> -------------- <-->\n");
 	}
 	
 	private static void listarVendas() {
