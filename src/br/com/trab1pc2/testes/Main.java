@@ -315,6 +315,7 @@ public class Main {
 							System.out.printf("1. Ver todas as vendas.\n");
 							System.out.printf("2. Ver todas as vendas em determinado dia.\n");
 							System.out.printf("3. Ver venda com código.\n");
+							System.out.printf("4. Ver vendas de cliente.\n");
 							System.out.printf("0. Voltar ao Menu Principal.\n");
 							System.out.printf(": ");
 							opcao3 = inN.nextInt();
@@ -334,6 +335,11 @@ public class Main {
 								
 							case 3:
 								listarVendaID();
+								
+								break;
+								
+							case 4:
+								listarVendasCliente();
 								
 								break;
 								
@@ -613,6 +619,24 @@ public class Main {
 		}
 	}
 	
+	private static void listarVendasCliente() {
+		
+		System.out.printf("\nNome do cliente: ");
+		String cliente = inT.nextLine();
+		
+		Venda[] vendas = sis.listarVendasCliente(cliente);
+		
+		if (vendas != null) {
+			for (int i = 0; i < vendas.length; i++) {
+				System.out.printf("\nID: %d\nPedido: \n", vendas[i].getId());
+				listarProdutosVenda(vendas[i]);
+				System.out.printf("\nPreço total: R$%.2f\nCliente: %s\nData: %s\n\n", vendas[i].getPedido().getPrecoTotal(), vendas[i].getCliente(), formato.format(vendas[i].getData()));
+			
+				System.out.printf("\n<--> -------------- <-->\n");
+			}
+		}
+	}
+	
 	private static void init() {
 		
 		Produto produto = Produto.getInstance("Jaca", "Fruta", 12.99, 50);
@@ -656,6 +680,17 @@ public class Main {
 		pedido.inserirItem(item);
 		
 		venda = Venda.getInstance(pedido, "Luciano", "20/10/2019");
+		sis.realizarVenda(venda);
+		
+		pedido = criarPedido();
+		item = sis.criarItem(sis.buscarProduto(4).getId(), 3);
+		pedido.inserirItem(item);
+		item = sis.criarItem(sis.buscarProduto(2).getId(), 2);
+		pedido.inserirItem(item);
+		item = sis.criarItem(sis.buscarProduto(2).getId(), 5);
+		pedido.inserirItem(item);
+		
+		venda = Venda.getInstance(pedido, "Luciano", "21/10/2019");
 		sis.realizarVenda(venda);
 		
 		

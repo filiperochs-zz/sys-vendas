@@ -21,13 +21,15 @@ public class Pedido {
 
 	public boolean inserirItem(Item item) {	// faz a inserção de um Item ao vetor itens
 		if (item != null) {
-			if (numItens >= itens.length) {
-				itens = extendeVetor(itens);
-			}
 			
-			if (existeItem(item) != -1) {
-				itens[existeItem(item)].somarQtd(item.getQtd());
+			int index = existeItem(item);
+			
+			if (index != -1) {
+				itens[index].somarQtd(item.getQtd());
 			} else {
+				if (numItens >= itens.length) {
+					itens = extendeVetor(itens);
+				}
 				itens[numItens] = item;
 				numItens++;
 			}
@@ -42,7 +44,7 @@ public class Pedido {
 		return (precoTotal += preco*qtd);
 	}
 	
-	private Item[] extendeVetor(Item[] itens) { // extende o vetor itens[] em +10
+	private Item[] extendeVetor(Item[] itens) { // extende o vetor itens[] em +1
 		if (numItens >= itens.length) {
 			Item[] aux = new Item[itens.length+1];
 			for (int i = 0; i < itens.length; i++) {
