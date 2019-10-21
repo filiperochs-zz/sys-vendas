@@ -613,8 +613,9 @@ public class Main {
 		Item[] itens = sis.listarProdutosVenda(venda);
 		
 		if (itens != null) {
+			System.out.printf("\n   ID  Nome     Preço    Quantidade\n");
 			for (int i = 0; i < itens.length; i++) {
-				System.out.printf("\n-> %s\nPreço: R$%.2f\nQuantidade: %d\n", itens[i].getProduto().getNome(), itens[i].getPreco(), itens[i].getQtd());
+				System.out.printf("   %d   %s      R$%.2f     %d\n", itens[i].getProduto().getId(), itens[i].getProduto().getNome(), itens[i].getPreco(), itens[i].getQtd());
 			}
 		}
 	}
@@ -628,10 +629,11 @@ public class Main {
 		
 		if (vendas != null) {
 			for (int i = 0; i < vendas.length; i++) {
-				System.out.printf("\nID: %d\nPedido: \n", vendas[i].getId());
+				System.out.printf("\n-----ID   Data");
+				System.out.printf("\n     %d   %s", vendas[i].getId(), formato.format(vendas[i].getData()));
+				System.out.println("\n-----Produtos: ");
 				listarProdutosVenda(vendas[i]);
-				System.out.printf("\nPreço total: R$%.2f\nCliente: %s\nData: %s\n\n", vendas[i].getPedido().getPrecoTotal(), vendas[i].getCliente(), formato.format(vendas[i].getData()));
-			
+				
 				System.out.printf("\n<--> -------------- <-->\n");
 			}
 		}
@@ -683,7 +685,7 @@ public class Main {
 		sis.realizarVenda(venda);
 		
 		pedido = criarPedido();
-		item = sis.criarItem(sis.buscarProduto(4).getId(), 3);
+		item = sis.criarItem(sis.buscarProduto(1).getId(), 3);
 		pedido.inserirItem(item);
 		item = sis.criarItem(sis.buscarProduto(2).getId(), 2);
 		pedido.inserirItem(item);
